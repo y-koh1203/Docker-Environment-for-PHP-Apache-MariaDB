@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+ php:
+  build:
+   context: './php'
+  ports:
+   - '80:80'
+  depends_on:
+   - mariadb
+  volumes:
+   - ./html:/var/www/html
+
+ mariadb:
+  image: 'mariadb:10.4.1'
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+  volumes: 
+   - ./mariadb:/var/lib/mariadb
+
+ adminer:
+  image: adminer
+  restart: always
+  ports:
+   - 8080:8080
